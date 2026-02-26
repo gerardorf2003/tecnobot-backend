@@ -1,15 +1,3 @@
-const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Servidor TecnoBot funcionando 🚀");
-});
-
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -27,8 +15,7 @@ app.post("/chat", async (req, res) => {
             role: "system",
             content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
-Responde de forma clara, motivadora y profesional.
-Solo responde temas relacionados con informática, inscripciones, actividades o perfil académico.
+Responde claro y profesional.
 `
           },
           { role: "user", content: userMessage }
@@ -37,18 +24,24 @@ Solo responde temas relacionados con informática, inscripciones, actividades o 
     });
 
     const data = await response.json();
+
+    // 🔎 LOG PARA VER QUE RESPONDE OPENROUTER
+    console.log("RESPUESTA OPENROUTER:", data);
+
+    if (!data.choices) {
+      return res.status(500).json({
+        reply: "Error del modelo de IA. Revisa la API Key o el modelo."
+      });
+    }
+
     const reply = data.choices[0].message.content;
 
-    res.json({ reply: reply });
+    res.json({ reply });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ reply: "Hubo un error en el servidor." });
+    console.error("ERROR COMPLETO:", error);
+    res.status(500).json({
+      reply: "Hubo un error interno en el servidor."
+    });
   }
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log("Servidor corriendo en puerto " + PORT);
 });
