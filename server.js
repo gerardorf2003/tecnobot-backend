@@ -5,6 +5,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("TecnoBot backend funcionando 🚀");
+});
+
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -50,4 +54,5 @@ Responde claro y profesional.
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo");
 });
+
 
