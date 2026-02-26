@@ -19,21 +19,20 @@ app.post("/chat", async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        model: "openai/gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content: `
+     body: JSON.stringify({
+  model: "openrouter/free",
+  messages: [
+    {
+      role: "system",
+      content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
-Responde claro y profesional.
+Responde claro, profesional y motivador.
+Solo temas relacionados con informática, inscripciones y actividades académicas.
 `
-          },
-          { role: "user", content: userMessage }
-        ]
-      })
-    });
-
+    },
+    { role: "user", content: userMessage }
+  ]
+})
     const data = await response.json();
 console.log("RESPUESTA COMPLETA:", data);
 
@@ -55,6 +54,7 @@ console.log("RESPUESTA COMPLETA:", data);
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo");
 });
+
 
 
 
