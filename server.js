@@ -13,7 +13,7 @@ app.post("/chat", async (req, res) => {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",
+     "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -41,5 +41,6 @@ Solo responde temas relacionados con informática, inscripciones, actividades o 
     res.json({ respuesta: "Hubo un error en el servidor." });
   }
 });
+
 
 app.listen(3000, () => console.log("Servidor corriendo en puerto 3000"));
