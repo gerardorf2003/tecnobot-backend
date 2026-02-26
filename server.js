@@ -6,6 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Servidor TecnoBot funcionando 🚀");
+});
+
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -38,10 +42,13 @@ Solo responde temas relacionados con informática, inscripciones, actividades o 
     res.json({ reply: reply });
 
   } catch (error) {
-    res.json({ reply: "Hubo un error en el servidor." });
+    console.error(error);
+    res.status(500).json({ reply: "Hubo un error en el servidor." });
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Servidor corriendo");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT);
 });
