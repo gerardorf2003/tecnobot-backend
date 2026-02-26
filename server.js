@@ -1,3 +1,11 @@
+const express = require("express");
+const cors = require("cors");
+const fetch = require("node-fetch");
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -9,13 +17,14 @@ app.post("/chat", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct",
+        model: "openai/gpt-3.5-turbo",
         messages: [
           {
             role: "system",
             content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
-Responde claro y profesional.
+Responde claro, motivador y profesional.
+Solo temas relacionados con informática, inscripciones o actividades.
 `
           },
           { role: "user", content: userMessage }
@@ -25,12 +34,11 @@ Responde claro y profesional.
 
     const data = await response.json();
 
-    // 🔎 LOG PARA VER QUE RESPONDE OPENROUTER
     console.log("RESPUESTA OPENROUTER:", data);
 
     if (!data.choices) {
       return res.status(500).json({
-        reply: "Error del modelo de IA. Revisa la API Key o el modelo."
+        reply: "Error del modelo de IA."
       });
     }
 
@@ -45,3 +53,8 @@ Responde claro y profesional.
     });
   }
 });
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Servidor corriendo");
+});
+
