@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
 
 const app = express();
 app.use(cors());
@@ -23,8 +22,7 @@ app.post("/chat", async (req, res) => {
             role: "system",
             content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
-Responde claro, motivador y profesional.
-Solo temas relacionados con informática, inscripciones o actividades.
+Responde claro y profesional.
 `
           },
           { role: "user", content: userMessage }
@@ -34,12 +32,9 @@ Solo temas relacionados con informática, inscripciones o actividades.
 
     const data = await response.json();
 
-    console.log("RESPUESTA OPENROUTER:", data);
-
     if (!data.choices) {
-      return res.status(500).json({
-        reply: "Error del modelo de IA."
-      });
+      console.log(data);
+      return res.status(500).json({ reply: "Error del modelo IA" });
     }
 
     const reply = data.choices[0].message.content;
@@ -48,9 +43,7 @@ Solo temas relacionados con informática, inscripciones o actividades.
 
   } catch (error) {
     console.error("ERROR COMPLETO:", error);
-    res.status(500).json({
-      reply: "Hubo un error interno en el servidor."
-    });
+    res.status(500).json({ reply: "Error interno del servidor" });
   }
 });
 
