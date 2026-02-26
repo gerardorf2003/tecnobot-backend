@@ -8,12 +8,12 @@ app.use(express.json());
 
 app.post("/chat", async (req, res) => {
   try {
-    const userMessage = req.body.mensaje;
+    const userMessage = req.body.message;
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-     "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -35,13 +35,13 @@ Solo responde temas relacionados con informática, inscripciones, actividades o 
     const data = await response.json();
     const reply = data.choices[0].message.content;
 
-    res.json({ respuesta: reply });
+    res.json({ reply: reply });
 
   } catch (error) {
-    res.json({ respuesta: "Hubo un error en el servidor." });
+    res.json({ reply: "Hubo un error en el servidor." });
   }
 });
+
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo");
 });
-
