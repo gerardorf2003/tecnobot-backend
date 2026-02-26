@@ -27,7 +27,10 @@ app.post("/chat", async (req, res) => {
             content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
 Responde claro, profesional y motivador.
+Las respuestas deben ser cortas (máximo 3 oraciones).
+No escribas párrafos largos.
 Solo temas relacionados con informática, inscripciones y actividades académicas.
+Cuando pregunten sobre inscripciones aclara que ahora son gratuitas.
 `
           },
           { role: "user", content: userMessage }
@@ -61,6 +64,7 @@ Solo temas relacionados con informática, inscripciones y actividades académica
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo 🚀");
 });
+
 
 
 
