@@ -8,7 +8,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("TecnoBot backend funcionando 🚀");
 });
-console.log("API KEY:", process.env.OPENROUTER_API_KEY);
+
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -19,25 +19,32 @@ app.post("/chat", async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json"
       },
-     body: JSON.stringify({
-  model: "openrouter/free",
-  messages: [
-    {
-      role: "system",
-      content: `
+      body: JSON.stringify({
+        model: "openrouter/free",
+        messages: [
+          {
+            role: "system",
+            content: `
 Eres TecnoBot, asesor académico del Tecnológico Superior de Acayucan.
 Responde claro, profesional y motivador.
 Solo temas relacionados con informática, inscripciones y actividades académicas.
 `
-    },
-    { role: "user", content: userMessage }
-  ]
-})
+          },
+          { role: "user", content: userMessage }
+        ]
+      })
+    });
+
     const data = await response.json();
-console.log("RESPUESTA COMPLETA:", data);
+    console.log("RESPUESTA COMPLETA:", data);
+
+    if (data.error) {
+      console.log("ERROR OPENROUTER:", data.error);
+      return res.status(500).json({ reply: "Error del modelo gratuito." });
+    }
 
     if (!data.choices) {
-      console.log(data);
+      console.log("Respuesta inesperada:", data);
       return res.status(500).json({ reply: "Error del modelo IA" });
     }
 
@@ -52,8 +59,9 @@ console.log("RESPUESTA COMPLETA:", data);
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Servidor corriendo");
+  console.log("Servidor corriendo 🚀");
 });
+
 
 
 
