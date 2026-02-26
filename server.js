@@ -35,6 +35,7 @@ Responde claro y profesional.
     });
 
     const data = await response.json();
+console.log("RESPUESTA COMPLETA:", data);
 
     if (!data.choices) {
       console.log(data);
@@ -54,5 +55,6 @@ Responde claro y profesional.
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo");
 });
+
 
 
