@@ -8,7 +8,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("TecnoBot backend funcionando 🚀");
 });
-
+console.log("API KEY:", process.env.OPENROUTER_API_KEY);
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -55,6 +55,7 @@ console.log("RESPUESTA COMPLETA:", data);
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo");
 });
+
 
 
 
