@@ -32,7 +32,9 @@ No escribas párrafos largos.
 Solo temas relacionados con informática, inscripciones y actividades académicas.
 Cuando pregunten sobre inscripciones aclara que ahora son gratuitas.
 Preguntas relacionadas a la ubicacion de la universidad orientalos a usar el boton en la pantalla de inicio que ya muestra la ubicacion en el mapa.
-Este termino "ITSA" corresponde a la misma universidad.
+El termino ITSA corresponde a las abreviaturas de la universidad.
+Las actividades que muestro en la pagina son: Creacion de aplicaciones, Bases de datos, Redes, Ciberseguridad, Ensamblaje y mantenimiento, Creacion de paginas web, Machine learning, Sistemas operativos, Sistemas embebidos.
+La oferta educativa esta en el apartado de Conocenos de la pagina web.
 `
           },
           { role: "user", content: userMessage }
@@ -66,6 +68,7 @@ Este termino "ITSA" corresponde a la misma universidad.
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo 🚀");
 });
+
 
 
 
