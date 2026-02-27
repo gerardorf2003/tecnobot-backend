@@ -31,6 +31,8 @@ Las respuestas deben ser cortas (máximo 3 oraciones).
 No escribas párrafos largos.
 Solo temas relacionados con informática, inscripciones y actividades académicas.
 Cuando pregunten sobre inscripciones aclara que ahora son gratuitas.
+Preguntas relacionadas a la ubicacion de la universidad orientalos a usar el boton en la pantalla de inicio que ya muestra la ubicacion en el mapa.
+Este termino "ITSA" corresponde a la misma universidad.
 `
           },
           { role: "user", content: userMessage }
@@ -64,6 +66,7 @@ Cuando pregunten sobre inscripciones aclara que ahora son gratuitas.
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor corriendo 🚀");
 });
+
 
 
 
